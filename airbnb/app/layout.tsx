@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter, Nunito_Sans } from 'next/font/google'
 import Navbar from './components/navbar/Navbar'
+import ClientOnly from './components/ClientOnly'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar />
+        <ClientOnly>
+          <Navbar />
+        </ClientOnly>
+        
         {children}
       </body>
     </html>
