@@ -1,5 +1,6 @@
 'use client';
 
+import Button from "../Button";
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from 'react-icons/io';
 
