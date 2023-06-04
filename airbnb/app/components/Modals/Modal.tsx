@@ -141,6 +141,7 @@ const Modal: React.FC<ModalProps> = ({
                             "
                            >
                                 <button
+                                    onClick={handleClose}
                                     className="
                                      p-1
                                      border-0
@@ -152,7 +153,28 @@ const Modal: React.FC<ModalProps> = ({
                                 >
                                     <IoMdClose size={18} />
                                 </button>
+                                <div className="text-leg font-semibold">
+                                    {title}
+                                </div>
 
+                           </div>
+                           {/* BODY */}
+                           <div className="relative p-6 flex-auto">
+                            {body}
+                           </div>
+                           {/* FOOTER */}
+                           <div className="flex flex-col gap-2 p-6">
+                            <div
+                                className="
+                                 flex
+                                 flex-row
+                                 items-center
+                                 gap-4
+                                 w-full
+                                "
+                            >
+
+                            </div>
                            </div>
 
                         </div>
