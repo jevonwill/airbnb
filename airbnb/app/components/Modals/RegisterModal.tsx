@@ -10,7 +10,7 @@ import {
 } from "react-hook-form";
 
 import useRegisterModal from "airbnb/app/hooks/useRegisterModal.tsx";
-
+import Modal from './Modal';
 
 
 const RegisterModal = () => {
@@ -47,9 +47,15 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
 }
 
     return (  
-        <div>
-            
-        </div>
+       <Modal 
+        disabled={isLoading}
+        isOpen={registerModal.isOpen}
+        title="Reigster"
+        actionLabel="Continue"
+        onClose={registerModal.onClose}
+        onSubmit={handleSubmit(onSubmit)}
+       
+       /> 
     );
 }
  
