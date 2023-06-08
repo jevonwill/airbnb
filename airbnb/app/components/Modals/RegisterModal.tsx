@@ -1,4 +1,5 @@
 'use client';
+import Heading from '../Heading';
 import axios from 'axios';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from "react-icons/fc";
@@ -9,9 +10,8 @@ import {
     useForm
 } from "react-hook-form";
 
-import useRegisterModal from "airbnb/app/hooks/useRegisterModal.tsx";
 import Modal from './Modal';
-
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -46,6 +46,12 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
         })
 }
 
+const bodyContent = (
+    <div className='flex flex-col gap-4'>
+        <Heading />
+    </div>
+)
+
     return (  
        <Modal 
         disabled={isLoading}
@@ -54,6 +60,7 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
         actionLabel="Continue"
         onClose={registerModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
        
        /> 
     );
