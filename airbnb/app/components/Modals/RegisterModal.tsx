@@ -29,7 +29,22 @@ const RegisterModal = () => {
         email: '',
         password: ''
     }
-})
+});
+
+const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+
+    axios.post('/api/register', data)
+        .then(() => {
+            registerModal.onClose();
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
+}
 
     return (  
         <div>
