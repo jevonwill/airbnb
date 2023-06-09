@@ -140,7 +140,7 @@ const footerContent = (
        <Modal 
         disabled={isLoading}
         isOpen={registerModal.isOpen}
-        title="Reigster"
+        title="Register"
         actionLabel="Continue"
         onClose={registerModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
