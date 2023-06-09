@@ -13,6 +13,8 @@ import {
 
 import Modal from './Modal';
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import toast from 'react-hot-toast'
+import Button from '../Button';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -40,7 +42,7 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
             registerModal.onClose();
         })
         .catch((error) => {
-            console.log(error);
+            toast.error("Something went wrong");
         })
         .finally(() => {
             setIsLoading(false);
@@ -81,6 +83,26 @@ const bodyContent = (
     </div>
 )
 
+const footerContent = (
+    <div 
+        className='
+         flex
+         flex-col
+         gap-4
+         mt-3
+        '
+    >
+        <hr />
+        <Button 
+            outline
+            label='Continue with Google'
+            onClick={() => {}}
+            icon={FcGoogle}
+        />
+
+    </div>
+)
+
     return (  
        <Modal 
         disabled={isLoading}
@@ -90,6 +112,7 @@ const bodyContent = (
         onClose={registerModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
+        footer={footerContent}
        
        /> 
     );
