@@ -1,5 +1,5 @@
 # airbnb
-2:02:19
+2:06:19
 
 Frameworks: Next.js & TailwindCSS
 Database: MongoDB with Prisma ORM
