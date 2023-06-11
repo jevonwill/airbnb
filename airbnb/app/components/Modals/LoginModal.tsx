@@ -18,6 +18,7 @@ import toast from 'react-hot-toast'
 import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
+import { log } from 'console';
 
 const LoginModal = () => {
     const router = useRouter();
@@ -46,8 +47,17 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
         redirect: false,
     })
     .then((callback) => {
-        toast.success('Logged in');
-        router.refresh();
+        setIsLoading(false);
+
+        if (callback?.ok) {
+            toast.success('Logged in');
+            router.refresh();
+            loginModal.onClose();
+        }
+
+        if (callback?.error) {
+            toast.error(callback.error);
+        }
     })
 }
 
