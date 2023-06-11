@@ -1,4 +1,5 @@
 'use client';
+import { signIn } from 'next-auth/react';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
 import axios from 'axios';
@@ -16,8 +17,10 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 import toast from 'react-hot-toast'
 import Button from '../Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
+    const router = useRouter();
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +33,6 @@ const LoginModal = () => {
     }
 } = useForm<FieldValues>({
     defaultValues: {
-        name: '',
         email: '',
         password: ''
     }
@@ -39,23 +41,21 @@ const LoginModal = () => {
 const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios.post('/api/register', data)
-        .then(() => {
-            registerModal.onClose();
-        })
-        .catch((error) => {
-            toast.error("Something went wrong");
-        })
-        .finally(() => {
-            setIsLoading(false);
-        })
+    signIn('credentials', {
+        ...data,
+        redirect: false,
+    })
+    .then((callback) => {
+        toast.success('Logged in');
+        router.refresh();
+    })
 }
 
 const bodyContent = (
     <div className='flex flex-col gap-4'>
         <Heading 
-            title='Welcome to JevonBnB'
-            subtitle='Create an account!'
+            title='Welcome back'
+            subtitle='Login to your account'
         />
         <Input 
             id="email"
@@ -65,14 +65,7 @@ const bodyContent = (
             errors={errors}
             required 
         />
-        <Input 
-            id="name"
-            label="Name"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required 
-        />
+
         <Input 
             id="password"
             type="password"
@@ -117,12 +110,12 @@ const footerContent = (
         >
             <div className='justify-center flex flex-row items-center gap-2'>
                 <div>
-                    Already have an account?
+                    Don't have an account?
                 </div>
             </div>
             <div>
                 <div 
-                    onClick={registerModal.onClose}
+                    onClick={loginModal.onClose}
                     className='
                      text-neutral-800
                      cursor-pointer
@@ -130,7 +123,7 @@ const footerContent = (
 
                     '
                 >
-                    Log in
+                    Sign up
                 </div>
             </div>
 
