@@ -6,14 +6,14 @@ import MenuItem from './MenuItem';
 import { useCallback, useState } from 'react';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { User } from '@/prisma/client';
+import  { User } from '@prisma/client';
 import { signOut } from 'next-auth/react';
 
-interface userMenuProps {
+interface UserMenuProps {
     currentUser?: User | null
 }
 
-const UserMenu: React.FC<userMenuProps> = ({
+const UserMenu: React.FC<UserMenuProps> = ({
     currentUser
 }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -113,7 +113,7 @@ const UserMenu: React.FC<userMenuProps> = ({
                                 label='Logout'
                             />
                         </>
-                        ): (
+                        ) : (
                         <>
                             <MenuItem 
                                 onClick={loginModal.onOpen}

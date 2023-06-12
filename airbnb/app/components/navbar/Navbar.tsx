@@ -7,18 +7,17 @@ import Search from "./Search";
 import UserMenu from "./UserMenu";
 
 interface NavbarProps {
-    currentUser?: User | null;
+    currentUser?: User | null
 }
 
 const Navbar: React.FC<NavbarProps> = ({
     currentUser
 }) => {
-    console.log(currentUser);
     return (
         <div className="fixed w-full bghttp://localhost:3000/-white z-10 shadow-sm">
             <div 
                 className="
-                 py-4http://localhost:3000/
+                 py-4
                  border-b-[1px]
                 "
             >
@@ -37,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
                         <Logo />
                         <Search />
-                        <UserMenu />
+                        <UserMenu currentUser={currentUser}/>
 
                     </div>
                 </Container>
