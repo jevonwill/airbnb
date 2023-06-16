@@ -101,7 +101,7 @@ const footerContent = (
         <Button 
             outline
             label='Continue with Google'
-            onClick={() => {}}
+            onClick={() => {signIn('google')}}
             icon={FcGoogle}
         />
         <Button 
