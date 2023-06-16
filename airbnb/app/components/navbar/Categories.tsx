@@ -6,6 +6,7 @@ import { GiWindmill, } from 'react-icons/gi';
 import { TbBeach } from 'react-icons/tb';
 import { MdOutlineVilla } from 'react-icons/md';
 
+
 export const categories = [
     {
         label: 'Beach',
