@@ -97,13 +97,15 @@ const footerContent = (
         <Button 
             outline
             label='Continue with Google'
-            onClick={() => {}}
+            onClick={() => signIn('google')}
             icon={FcGoogle}
         />
         <Button 
             outline
             label='Continue with Github'
-            onClick={() => signIn('github')}
+            onClick={() => {
+                signIn('github')
+            }}
             icon={AiFillGithub}
         />
         <div 
