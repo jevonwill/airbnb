@@ -3,6 +3,7 @@
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
+import Map from "../Map";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
@@ -49,6 +50,7 @@ const RentModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -120,8 +122,11 @@ const RentModal = () => {
                     subtitle="Help guests find you"
                 />
                 <CountrySelect 
+                    value={location}
                     onChange={(value) => setCustomValue('location', value)} 
                 />
+
+                <Map />
             </div>
         )
     }
