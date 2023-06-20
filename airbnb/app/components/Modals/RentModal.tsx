@@ -120,7 +120,7 @@ const RentModal = () => {
                     subtitle="Help guests find you"
                 />
                 <CountrySelect 
-                
+                    onChange={(value) => setCustomValue('location', value)} 
                 />
             </div>
         )
@@ -131,7 +131,7 @@ const RentModal = () => {
         <Modal 
             isOpen={rentModal.isOpen}
             onClose={rentModal.onClose}
-            onSubmit={rentModal.onClose}
+            onSubmit={onNext}
             actionLabel={actionLabel}
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
