@@ -83,7 +83,7 @@ export const categories = [
         description: 'Scorching desert fun'
     },
     {
-        label: 'Luxery',
+        label: 'Luxury',
         icon: IoDiamond,
         description: 'Ultra-Lux High Class stays'
     }
