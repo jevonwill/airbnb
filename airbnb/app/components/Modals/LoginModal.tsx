@@ -61,6 +61,11 @@ const onSubmit: SubmitHandler<FieldValues> = (data) => {
     })
 }
 
+const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+}, [loginModal, registerModal])
+
 const bodyContent = (
     <div className='flex flex-col gap-4'>
         <Heading 
@@ -125,7 +130,7 @@ const footerContent = (
             </div>
             <div>
                 <div 
-                    onClick={loginModal.onClose}
+                    onClick={toggle}
                     className='
                      text-neutral-800
                      cursor-pointer
