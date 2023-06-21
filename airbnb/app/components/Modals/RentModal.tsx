@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Counter from "../inputs/Counter";
 import CategoryInput from "../inputs/CategoryInput";
+import ImageUpload from "../inputs/ImageUpload";
 import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
 import { useMemo, useState } from "react";
@@ -169,6 +170,21 @@ const RentModal = () => {
                 />
 
 
+            </div>
+        )
+    }
+
+    if (step == STEPS.IMAGES) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading 
+                    title="Add a photo of your place!"
+                    subtitle="Guests are more likely to book homes with good pictures!"
+                />
+                <ImageUpload 
+                    onChange={() => {}}
+                    value=""
+                />
             </div>
         )
     }
