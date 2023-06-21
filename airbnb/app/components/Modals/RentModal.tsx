@@ -3,7 +3,7 @@
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
-import Map from "../Map";
+import Counter from "../inputs/Counter";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
@@ -143,6 +143,7 @@ const RentModal = () => {
                     title="Share some basics about your place"
                     subtitle="What amenities do you have?"
                 />
+                <Counter />
             </div>
         )
     }
