@@ -3,6 +3,7 @@
 import useRentModal from "@/app/hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
+import Input from "../inputs/Input";
 import Counter from "../inputs/Counter";
 import CategoryInput from "../inputs/CategoryInput";
 import ImageUpload from "../inputs/ImageUpload";
@@ -26,6 +27,7 @@ const RentModal = () => {
     const rentModal = useRentModal();
 
     const [step, setStep] = useState(STEPS.CATEGORY);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         register,
@@ -56,6 +58,7 @@ const RentModal = () => {
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
 
     const Map =  useMemo(() => dynamic(() => import('../Map'), {ssr:false}), [location])
 
@@ -182,8 +185,36 @@ const RentModal = () => {
                     subtitle="Guests are more likely to book homes with good pictures!"
                 />
                 <ImageUpload 
-                    onChange={() => {}}
-                    value=""
+                    onChange={(value) => setCustomValue('imageSrc', value)}
+                    value={imageSrc}
+                />
+            </div>
+        )
+    }
+
+    if (step == STEPS.DESCRIPTION) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading 
+                    title="How would describe your place?"
+                    subtitle="Short and sweet works best"
+                />
+
+                <Input 
+                    id="title"
+                    label="Title"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+               <Input 
+                    id="description"
+                    label="Description"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
                 />
             </div>
         )
