@@ -90,7 +90,7 @@ const RentModal = () => {
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading 
-                title="Which of these best desribes your place?" 
+                title="Which of these best describes your place?" 
                 subtitle="Pick a category"
             />
             <div 
@@ -131,6 +131,17 @@ const RentModal = () => {
 
                 <Map 
                     center={location?.latlng}
+                />
+            </div>
+        )
+    }
+
+    if (step == STEPS.INFO) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading 
+                    title="Share some basics about your place"
+                    subtitle="What amenities do you have?"
                 />
             </div>
         )
