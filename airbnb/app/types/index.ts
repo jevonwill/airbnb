@@ -23,6 +23,7 @@ export type SafeReservation = Omit<
     'createdAt' | 'startDate' | 'endDate' | 'listing'
 > & {
     createdAt: string;
-    updatedAt: string;
-    emailVerified: string | null
+    startDate: string;
+    endDate: string;
+    listing: SafeListing
 }
