@@ -13,6 +13,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import axios from "axios";
+import { Range } from "react-date-range";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -53,7 +54,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
    const [isLoading, setIsLoading] = useState(false);
    const [totalPrice, setTotalPrice] = useState(listing.price)
-   const [dateRange, setDateRange] = useState(initialDateRange)
+   const [dateRange, setDateRange] = useState<Range>(initialDateRange)
 
     const onCreateReservation = useCallback(() => {
         if (!currentUser) {
