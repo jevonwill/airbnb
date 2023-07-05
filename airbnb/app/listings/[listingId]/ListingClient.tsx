@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from "react";
+import { toast } from "react-hot-toast";
+import { useCallback, useMemo, useState } from "react";
 import { SafeListing, SafeUser } from "@/app/types";
 import { Reservation } from "@prisma/client";
 import { categories } from "@/app/components/navbar/Categories";
@@ -10,6 +11,7 @@ import ListingInfo from "@/app/components/listings/ListingInfo";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
 import { eachDayOfInterval } from "date-fns";
+import axios from "axios";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -47,6 +49,37 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
        return dates;
     }, [reservations])
+
+   const [isLoading, setIsLoading] = useState(false);
+   const [totalPrice, setTotalPrice] = useState(listing.price)
+   const [dateRange, setDateRange] = useState(initialDateRange)
+
+    const onCreateReservation = useCallback(() => {
+        if (!currentUser) {
+            return loginModal.onOpen();
+        }
+
+        setIsLoading(true)
+
+        axios.post('/api/reservations', {
+            totalPrice,
+            startDate: dateRange.startDate,
+            endDate: dateRange.endDate,
+            listingId: listing?.id
+        })
+        .then(() => {
+            toast.success('Listing reserved')
+            setDateRange(initialDateRange);
+            //Redirect to /trips
+            router.refresh();
+        })
+        .catch(() => {
+            toast.error('Something went wrong')
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
+    }, [])
 
     const category = useMemo(() => {
         return categories.find((item) => 
