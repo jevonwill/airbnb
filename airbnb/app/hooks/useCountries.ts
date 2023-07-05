@@ -1,5 +1,7 @@
 import countries from 'world-countries';
 
+
+//Will need to create a solution using the country-region-data package for mo
 const formattedCountries = countries.map((country) => ({
   value: country.cca2,
   label: country.name.common,

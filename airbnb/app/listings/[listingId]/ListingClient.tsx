@@ -7,6 +7,15 @@ import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
+import { eachDayOfInterval } from "date-fns";
+
+const initialDateRange = {
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection'
+};
 
 interface ListingClientProps {
     reservations?: Reservation[];
@@ -18,8 +27,27 @@ interface ListingClientProps {
 
 const ListingClient: React.FC<ListingClientProps> = ({
     listing,
-    currentUser
+    currentUser,
+    reservations = []
 }) => {
+    const loginModal = useLoginModal();
+    const router = useRouter();
+
+    const disabledDates = useMemo(() => {
+       let dates: Date[] = [];
+
+       reservations.forEach((reservation) => {
+        const range = eachDayOfInterval({
+            start: new Date(reservation.startDate),
+            end: new Date(reservation.endDate)
+        });
+
+        dates = [...dates, ...range]
+       });
+
+       return dates;
+    }, [reservations])
+
     const category = useMemo(() => {
         return categories.find((item) => 
         item.label === listing.category)
@@ -50,6 +78,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
                             roomCount={listing.roomCount}
                             bathroomCount={listing.bathroomCount}
                             locationValue={listing.locationValue}
+                            guestCount={listing.guestCount}
                         />
                     </div>
                 </div>
