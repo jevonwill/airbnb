@@ -9,7 +9,7 @@ import { SafeReservation, SafeUser } from '../types';
 import Heading from '../components/Heading';
 import Container from '../components/Container';
 import ListingCard from '../components/listings/ListingCard';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 interface ReservationsClientProps {
@@ -25,8 +25,20 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
     const [deletingId, setDeletingId] = useState('')
 
     const onCancel = useCallback((id: string) => {
+        setDeletingId(id);
 
-    },[])
+        axios.delete(`/api/reservations/${id}`)
+         .then(() => {
+            toast.success("Reservation cancelled");
+            router.refresh();
+         })
+         .catch(() => {
+            toast.error('Something went wrong')
+         })
+         .finally(() => {
+            setDeletingId('')
+         })
+    },[router])
 
     return (  
        <Container>
