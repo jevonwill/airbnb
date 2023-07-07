@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 import ListingCard from '../components/listings/ListingCard';
 
 interface PropertiesClientProps {
-    listings: SafeListing;
+    listings: SafeListing[];
     currentUser?: SafeUser | null;
 }
 
@@ -23,9 +23,9 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     const onCancel = useCallback((id: string) => {
         setDeletingId(id);
 
-        axios.delete(`/api/reservations/${id}`)
+        axios.delete(`/api/listings/${id}`)
             .then(() => {
-                toast.success('Reservation cancelled')
+                toast.success('Listing removed')
                 router.refresh();
             })
             .catch((error) => {
@@ -38,8 +38,8 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     return (  
         <Container>
             <Heading 
-                title="Trips"
-                subtitle="Where you've been and where you're going"
+                title="Properties"
+                subtitle="List of your properties"
             />
             <div
                 className="
@@ -53,15 +53,15 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
                 2xl:grid-cols-6
                 "
             >
-                {reservations.map((reservation) => (
+                {listings.map((listing) => (
                     <ListingCard 
-                       key={reservation.id} 
-                       data={reservation.listing}
-                       reservation={reservation}
-                       actionId={reservation.id}
+                       key={listing.id} 
+                       data={listing}
+                       actionId={listing.id}
                        onAction={onCancel}
-                       disabled={deletingId === reservation.id}
+                       disabled={deletingId === listing.id}
                        currentUser={currentUser}
+                       actionLabel='Delete property'
                     />
                 ))}
             </div>
