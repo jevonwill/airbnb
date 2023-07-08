@@ -7,12 +7,13 @@ import Modal from "./Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { CountrySelectValue } from "../inputs/CountrySelect";
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import { formatISO } from 'date-fns';
+import Heading from '../Heading';
 
 enum STEPS {
     LOCATION = 0,
-    DATE = 2,
+    DATE = 1,
     INFO = 2,
 }
 
@@ -26,8 +27,8 @@ const SearchModal = () => {
     const [roomCount, setRoomCount] = useState(1);
     const [bathroomCount, setBathroomCount] = useState(1);
     const [dateRange, setDateRange] = useState<Range>({
-        startDate: newDate(),
-        endDate: newDate(),
+        startDate: new Date(),
+        endDate: new Date(),
         key: 'selection'
     });
 
@@ -56,7 +57,7 @@ const onSubmit = useCallback(async () => {
 
     const updatedQuery: any = {
         ...currentQuery,
-        locationValue: lovation?.value,
+        locationValue: location?.value,
         guestCount,
         roomCount,
         bathroomCount
@@ -70,7 +71,59 @@ const onSubmit = useCallback(async () => {
         updatedQuery.endDate = formatISO(dateRange.endDate)
     }
 
-}, [])
+    const url = qs.stringify({
+        url: '/',
+        query: updatedQuery
+    }, { skipNull: true })
+
+    setStep(STEPS.LOCATION)
+    searchModal.onClose();
+
+    router.push(url);
+}, [
+    step,
+    searchModal,
+    location,
+    router,
+    guestCount,
+    bathroomCount,
+    dateRange,
+    onNext,
+    params
+])
+
+    const actionLabel = useMemo(() => {
+        if (step === STEPS.INFO) {
+            return 'Search';
+        }
+
+        return 'Next'
+    }, [step]);
+
+    const secondaryActionLabel = useMemo(() => {
+        if (step === STEPS.LOCATION) {
+            return undefined;
+        }
+
+        return 'Back';
+    }, [step])
+
+    let bodyContent = (
+        <div className='flex flex-col gap-8'>
+            <Heading 
+                title='Where do you wanna go?'
+                subtitle='Find the perfect location!'
+            />
+            <CountrySelect 
+                value={location}
+                onChange={(value) => 
+                    setLocation(value as CountrySelectValue)
+                }
+            />
+            <hr />
+            <Map center={location?.latlng} />
+        </div>
+    )
 
     return (  
         <Modal 
@@ -79,6 +132,7 @@ const onSubmit = useCallback(async () => {
             onSubmit={searchModal.onOpen}
             title="Filters"
             actionLabel="Search"
+            body={bodyContent}
         />
     );
 }
